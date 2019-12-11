@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Segment, Card, Header } from "semantic-ui-react";
+import { Grid, Segment, Card, Header, Dimmer, Loader } from "semantic-ui-react";
 import AuthService from "../utils/AuthService";
 import AlbumCard from "./AlbumCard";
 
-const Artist = ({ artist: { name, albums } }) => {
+const Artist = ({ artist: { name, albums }, fetching }) => {
+  if (fetching) {
+    return (
+      <Grid
+        textAlign="center"
+        style={{ height: "100vh" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Dimmer active inverted>
+            <Loader />
+          </Dimmer>
+        </Grid.Column>
+      </Grid>
+    );
+  }
+
   return (
     <Grid
       style={{ height: "100vh", padding: "2rem 1rem 1rem" }}
@@ -23,7 +39,7 @@ const Artist = ({ artist: { name, albums } }) => {
             <Segment>
               <Card.Group centered>
                 {albums.map(album => (
-                  <AlbumCard {...album} />
+                  <AlbumCard key={album.id} {...album} />
                 ))}
               </Card.Group>
             </Segment>
@@ -35,7 +51,7 @@ const Artist = ({ artist: { name, albums } }) => {
 };
 
 const fetchArtist = Component => ({ match, ...props }) => {
-  const [data, setData] = useState({ artist: {}, isFetching: false });
+  const [data, setData] = useState({ artist: {}, isFetching: true });
   useEffect(() => {
     const fetchArtist = async () => {
       try {
@@ -59,7 +75,9 @@ const fetchArtist = Component => ({ match, ...props }) => {
     fetchArtist();
   }, []);
 
-  return <Component {...props} artist={data.artist} fetching={data.fetching} />;
+  return (
+    <Component {...props} artist={data.artist} fetching={data.isFetching} />
+  );
 };
 
 export default fetchArtist(Artist);
