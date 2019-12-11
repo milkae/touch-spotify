@@ -26,9 +26,7 @@ const Login = () => {
   }
 
   const logUser = () => {
-    const url = new URL(
-      `${process.env.REACT_APP_SPOTIFY_ACCOUNT_ENDPOINT}/authorize`
-    );
+    const url = new URL(`${process.env.REACT_APP_SPOTIFY_ACCOUNT}/authorize`);
     const params = {
       client_id: process.env.REACT_APP_SPOTIFY_ID,
       response_type: "token",
