@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Grid, Message, Segment, Card } from "semantic-ui-react";
 import AuthService from "../utils/AuthService";
 import ArtistCard from "./ArtistCard";
+import { useHistory } from "react-router-dom";
 
 const fetchArtists = async query => {
   const url = new URL(`${process.env.REACT_APP_SPOTIFY_API}/search`);
@@ -31,9 +32,20 @@ const formatArtist = ({ images, name, followers, popularity, id }) => ({
 });
 
 const Search = () => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(undefined);
   const [artists, setArtists] = useState([]);
   const [status, setStatus] = useState(null);
+  const history = useHistory();
+
+  useEffect(() => {
+    const stateSearch = history.location.state && history.location.state.search;
+    if (search === undefined && stateSearch) {
+      setSearch(stateSearch);
+      fetchArtists(stateSearch).then(handleResponse);
+    } else if (search !== stateSearch) {
+      history.replace(history.location.pathname, { search });
+    }
+  }, [search]);
 
   const handleSearch = e => {
     if (e.key === "Enter") {

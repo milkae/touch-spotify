@@ -37,7 +37,7 @@ const PrivateRoutes = () => {
       <Route path="/search">
         <Search />
       </Route>
-      <Route path="/artist/:name/:id" component={Artist} />
+      <Route path="/artist/:name" component={Artist} />
       <Redirect from="/" to="/search" />
     </Switch>
   );

@@ -6,7 +6,7 @@ const ArtistCard = ({ name, image, followers, popularity, id }) => {
   let history = useHistory();
 
   return (
-    <Card centered onClick={() => history.push(`/artist/${name}/${id}`)}>
+    <Card centered onClick={() => history.push(`/artist/${name}`, { id })}>
       <Image src={image} wrapped ui={false} />
       <Card.Content>
         <Card.Header>{name}</Card.Header>

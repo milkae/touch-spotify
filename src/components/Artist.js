@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Grid, Segment, Card, Header, Dimmer, Loader } from "semantic-ui-react";
 import AuthService from "../utils/AuthService";
 import AlbumCard from "./AlbumCard";
+import { useLocation } from "react-router-dom";
 
 const Artist = ({ artist: { name, albums }, fetching }) => {
   if (fetching) {
@@ -52,12 +53,14 @@ const Artist = ({ artist: { name, albums }, fetching }) => {
 
 const fetchArtist = Component => ({ match, ...props }) => {
   const [data, setData] = useState({ artist: {}, isFetching: true });
+  const location = useLocation();
+  const { id } = location.state;
   useEffect(() => {
     const fetchArtist = async () => {
       try {
         setData({ artist: data.artist, isFetching: true });
         const response = await fetch(
-          `${process.env.REACT_APP_SPOTIFY_API}/artists/${match.params.id}/albums`,
+          `${process.env.REACT_APP_SPOTIFY_API}/artists/${id}/albums`,
           {
             headers: {
               Authorization: `Bearer ${AuthService.getToken()}`
