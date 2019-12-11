@@ -22,11 +22,12 @@ const fetchArtists = async query => {
   return data;
 };
 
-const formatArtist = ({ images, name, followers, popularity }) => ({
+const formatArtist = ({ images, name, followers, popularity, id }) => ({
   name,
   image: images[0] && images[0].url,
   followers: followers.total,
-  popularity
+  popularity,
+  id
 });
 
 const Search = () => {
@@ -56,7 +57,10 @@ const Search = () => {
   };
 
   return (
-    <Grid style={{ height: "100vh" }} verticalAlign="middle">
+    <Grid
+      style={{ height: "100vh", padding: "2rem 1rem 1rem" }}
+      verticalAlign="middle"
+    >
       <Grid.Row textAlign="center" centered>
         <Grid.Column style={{ maxWidth: 450 }}>
           {status && status.state === "error" && (
@@ -79,8 +83,8 @@ const Search = () => {
         <Grid.Row centered>
           <Segment>
             <Card.Group centered>
-              {artists.map((artist, index) => (
-                <ArtistCard key={`${artist.name}-${index}`} {...artist} />
+              {artists.map(artist => (
+                <ArtistCard key={`${artist.id}`} {...artist} />
               ))}
             </Card.Group>
           </Segment>

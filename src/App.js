@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login";
 import Search from "./components/Search";
+import Artist from "./components/Artist";
 import AuthService from "./utils/AuthService";
 
 export default function App() {
@@ -17,7 +18,6 @@ export default function App() {
           <Login />
         </Route>
         <Route path="/">
-          <Redirect from="/" to="/search" />
           <PrivateRoutes />
         </Route>
       </Switch>
@@ -34,6 +34,8 @@ const PrivateRoutes = () => {
       <Route path="/search">
         <Search />
       </Route>
+      <Route path="/artist/:name/:id" component={Artist} />
+      <Redirect from="/" to="/search" />
     </Switch>
   );
 };
