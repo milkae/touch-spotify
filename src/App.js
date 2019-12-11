@@ -5,6 +5,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
+import Layout from "./components/Layout";
 import Login from "./components/Login";
 import Search from "./components/Search";
 import Artist from "./components/Artist";
@@ -13,14 +14,16 @@ import AuthService from "./utils/AuthService";
 export default function App() {
   return (
     <Router>
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/">
-          <PrivateRoutes />
-        </Route>
-      </Switch>
+      <Layout>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/">
+            <PrivateRoutes />
+          </Route>
+        </Switch>
+      </Layout>
     </Router>
   );
 }

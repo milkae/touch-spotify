@@ -57,12 +57,9 @@ const Search = () => {
   };
 
   return (
-    <Grid
-      style={{ height: "100vh", padding: "2rem 1rem 1rem" }}
-      verticalAlign="middle"
-    >
+    <>
       <Grid.Row textAlign="center" centered>
-        <Grid.Column style={{ maxWidth: 450 }}>
+        <Grid.Column style={{ maxWidth: 450 }} textAlign="center">
           {status && status.state === "error" && (
             <Message
               error
@@ -90,7 +87,7 @@ const Search = () => {
           </Segment>
         </Grid.Row>
       )}
-    </Grid>
+    </>
   );
 };
 

@@ -40,8 +40,8 @@ const Login = () => {
   };
 
   return (
-    <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 450 }}>
+    <Grid.Row centered>
+      <Grid.Column textAlign="center" style={{ maxWidth: 450 }}>
         {error && (
           <Message
             error
@@ -59,7 +59,7 @@ const Login = () => {
           color="green"
         />
       </Grid.Column>
-    </Grid>
+    </Grid.Row>
   );
 };
 
